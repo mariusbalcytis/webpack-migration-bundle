@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    {% stylesheets
+        '@named1_css'
+        '@MabaWebpackMigrationTestBundle/Resources/assets/source/source1-bundle.css'
+        '%kernel.root_dir%/Resources/assets/source1-app.css'
+    %}
+    <link href="{{ asset_url }}" rel="stylesheet" type="text/css" id="first_css">
+    {% endstylesheets %}
+
+    {% stylesheets
+        '@named2_css'
+        '@MabaWebpackMigrationTestBundle/Resources/assets/source/source2-simple.css'
+        '@MabaWebpackMigrationTestBundle/Resources/assets/source/source2-with-require.css'
+    %}
+    <link href="{{ asset_url }}" rel="stylesheet" type="text/css" id="second_css">
+    {% endstylesheets %}
+</head>
+<body>
+    {% image '@MabaWebpackMigrationTestBundle/Resources/images/webpack.png' %}
+    <img src="{{ asset_url }}"/>
+    {% endimage %}
+
+    {% javascripts
+        '@named1_js'
+        '@MabaWebpackMigrationTestBundle/Resources/assets/source/source1-bundle.js'
+        '%kernel.root_dir%/Resources/assets/source1-app.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}" id="first_js"></script>
+    {% endjavascripts %}
+
+    {% javascripts
+        '@named2_js'
+        '@MabaWebpackMigrationTestBundle/Resources/assets/source/source2-simple.js'
+        '@MabaWebpackMigrationTestBundle/Resources/assets/source/source2-with-require.js'
+        '@MabaWebpackMigrationTestBundle/Resources/assets/glob/*.js'
+        '@MabaWebpackMigrationTestBundle/Resources/assets/glob/*/*.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}" id="second_js"></script>
+    {% endjavascripts %}
+
+    <script src="{{ webpack_asset('@MabaWebpackMigrationTestBundle/Resources/assets/webpack.js') }}" id="webpack_js"></script>
+</body>
+</html>

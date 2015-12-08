@@ -1,0 +1,1 @@
+console.log('from-source2-js-content');

@@ -1,0 +1,1 @@
+console.log('named1-bundle-js-content');

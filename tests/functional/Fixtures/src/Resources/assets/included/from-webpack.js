@@ -1,0 +1,1 @@
+console.log('from-webpack-js-content');

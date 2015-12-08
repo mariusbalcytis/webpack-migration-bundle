@@ -1,0 +1,1 @@
+console.log('glob3-js-content');
