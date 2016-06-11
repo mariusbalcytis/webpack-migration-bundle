@@ -20,9 +20,19 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('maba_webpack_migration');
 
-        $rootNode->children()->scalarNode('loader_prefix')->defaultValue(
-            'imports?this=>window!imports?define=>false!imports?module=>false!'
-        );
+        $rootNode->children()->arrayNode('ignored_filters')->defaultValue(array(
+            'cssrewrite',
+            'less',
+            'lessphp',
+            'scssphp',
+            'sassphp',
+            'jsqueeze',
+            'uglifyjs',
+            'uglifyjs2',
+            'uglifycss',
+            'yui_css',
+            'yui_js',
+        ))->prototype('scalar');
 
         return $treeBuilder;
     }

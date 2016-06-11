@@ -1,1 +1,0 @@
-console.log('source2-simple-js-content');

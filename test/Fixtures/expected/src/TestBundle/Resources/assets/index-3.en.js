@@ -1,0 +1,1 @@
+require("@test/variables/language-en.js");

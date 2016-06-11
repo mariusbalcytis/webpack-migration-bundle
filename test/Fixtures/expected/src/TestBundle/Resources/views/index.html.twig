@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+        <link href="{{ webpack_asset_function("@test/index.js", "css") }}" rel="stylesheet" type="text/css" id="css">
+    </head>
+<body>
+    {% image '@TestBundle/Resources/images/webpack.png' %}
+    <img src="{{ asset_url }}"/>
+    {% endimage %}
+
+        <script type="text/javascript" src="{{ webpack_asset_function("@test/index-1.js") }}" id="first_js"></script>
+    
+        <script type="text/javascript" src="{{ webpack_asset_function("@test/index-2.js") }}" id="second_js"></script>
+    
+    {% javascripts filter='cssrewrite'
+        '@TestBundle/Resources/public/asset.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}" id="third_js"></script>
+    {% endjavascripts %}
+
+        <script type="text/javascript" src="{{ assetic.vars["locale"] == "lt"
+? webpack_asset_function("@test/index-3.lt.js")
+: (
+    webpack_asset_function("@test/index-3.en.js")
+) }}"></script>
+    
+    <script src="{{ webpack_asset_function('@TestBundle/Resources/assets/asset.js') }}" id="webpack_js"></script>
+</body>
+</html>

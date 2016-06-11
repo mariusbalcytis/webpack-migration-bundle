@@ -1,1 +1,0 @@
-console.log('named1-app-js-content');

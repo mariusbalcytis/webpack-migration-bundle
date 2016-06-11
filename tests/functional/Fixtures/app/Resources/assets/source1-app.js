@@ -1,1 +1,0 @@
-console.log('source1-app-js-content');

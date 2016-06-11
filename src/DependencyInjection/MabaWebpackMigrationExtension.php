@@ -22,7 +22,7 @@ class MabaWebpackMigrationExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $container->setParameter('maba_webpack_migration.loader_prefix', $config['loader_prefix']);
+        $container->setParameter('maba_webpack_migration.ignored_filters', $config['ignored_filters']);
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');

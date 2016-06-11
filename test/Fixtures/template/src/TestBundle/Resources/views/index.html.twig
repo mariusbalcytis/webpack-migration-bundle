@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    {% stylesheets
+        '@TestBundle/Resources/assets/asset.css'
+        '%kernel.root_dir%/../dir1/asset.css'
+    %}
+    <link href="{{ asset_url }}" rel="stylesheet" type="text/css" id="css">
+    {% endstylesheets %}
+</head>
+<body>
+    {% image '@TestBundle/Resources/images/webpack.png' %}
+    <img src="{{ asset_url }}"/>
+    {% endimage %}
+
+    {% javascripts
+        '@named1'
+        '@TestBundle/Resources/public/asset.js'
+        '%kernel.root_dir%/Resources/public/asset.js'
+        '@TestBundle/Resources/assets/glob/*'
+        '@TestBundle/Resources/assets/glob/*/*.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}" id="first_js"></script>
+    {% endjavascripts %}
+
+    {% javascripts filter='uglifyjs2'
+        '@TestBundle/Resources/public/asset.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}" id="second_js"></script>
+    {% endjavascripts %}
+
+    {% javascripts filter='cssrewrite'
+        '@TestBundle/Resources/public/asset.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}" id="third_js"></script>
+    {% endjavascripts %}
+
+    {% javascripts vars=['locale']
+        '%kernel.root_dir%/../src/TestBundle/Resources/assets/variables/language-{locale}.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    <script src="{{ webpack_asset_function('@TestBundle/Resources/assets/asset.js') }}" id="webpack_js"></script>
+</body>
+</html>

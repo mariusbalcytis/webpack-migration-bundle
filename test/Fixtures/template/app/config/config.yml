@@ -1,0 +1,46 @@
+framework:
+    secret: "secret"
+    templating:
+        engines: ['twig']
+    router:
+        resource: ~
+        strict_requirements: ~
+
+assetic:
+    use_controller: false
+    bundles: [TestBundle]
+    assets:
+        named1:
+            inputs:
+                - 'https://code.jquery.com/jquery-3.0.0.min.js'
+                - '../dir1/*.js'
+                - '%kernel.root_dir%/../dir2/../dir2/asset.js'
+                - '%kernel.root_dir%/Resources/public/asset.js'
+                - '@TestBundle/Resources/assets/glob/*'
+                - '@TestBundle/Resources/assets/glob/*/*'
+                - '@TestBundle/Resources/assets/asset.css'
+                - '@TestBundle/Resources/assets/asset.js'
+                - '@TestBundle/Resources/public/asset.js'
+                - '@named2'
+            output: js/named1.js
+        named2:
+            inputs:
+                - '@TestBundle/Resources/public/asset.js'
+            output: js/named2.js
+    variables:
+        locale: [en, lt]
+    filters:
+        cssrewrite: ~
+        uglifyjs2:
+            bin: /usr/local/bin/uglifyjs
+
+maba_webpack:
+    aliases:
+        additional:
+            dir1: %kernel.root_dir%/../dir1
+    twig:
+        function_name: webpack_asset_function
+
+maba_webpack_migration:
+    ignored_filters:
+        - uglifyjs2

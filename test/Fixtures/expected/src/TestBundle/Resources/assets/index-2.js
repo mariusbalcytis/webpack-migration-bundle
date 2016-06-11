@@ -1,0 +1,1 @@
+require("@TestBundle/Resources/public/asset.js");

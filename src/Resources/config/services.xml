@@ -5,18 +5,57 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="maba_webpack_migration.twig.webpack_assetic_extension"
-                 class="Maba\Bundle\WebpackMigrationBundle\Twig\WebpackAsseticExtension">
-            <tag name="twig.extension"/>
+        <service id="maba_webpack_migration.alias_prefixer"
+                 class="Maba\Bundle\WebpackMigrationBundle\Service\AliasPrefixer" public="false">
+            <argument type="service" id="maba_webpack.alias_manager"/>
+        </service>
 
-            <argument type="service">
-                <service class="Maba\Bundle\WebpackMigrationBundle\Twig\WebpackAsseticNodeVisitor">
-                    <argument>%kernel.cache_dir%/webpack-migration/</argument>
-                    <argument>%assetic.variables%</argument>
-                    <argument>%maba_webpack.twig_function_name%</argument>
-                    <argument>%maba_webpack_migration.loader_prefix%</argument>
-                </service>
+        <service id="maba_webpack_migration.assetic_node_replacer"
+                 class="Maba\Bundle\WebpackMigrationBundle\Service\AsseticNodeReplacer"
+         >
+            <argument type="service" id="maba_twig_template_modification.node_replace_helper"/>
+            <argument type="service" id="maba_webpack_migration.alias_prefixer"/>
+            <argument>%assetic.variables%</argument>
+            <argument>%maba_webpack.twig_function_name%</argument>
+            <argument type="service" id="maba_webpack_migration.asset_file_dumper"/>
+            <argument>%maba_webpack.aliases.path_in_bundle%</argument>
+            <argument>%maba_webpack_migration.ignored_filters%</argument>
+        </service>
+
+        <service id="maba_webpack_migration.twig_files_replacer"
+                 class="Maba\Bundle\TwigTemplateModificationBundle\Service\FilesReplacer">
+            <factory service="maba_twig_template_modification.factory.files_replacer" method="createFilesReplacer"/>
+            <argument type="collection">
+                <argument type="service" id="maba_webpack_migration.assetic_node_replacer"/>
             </argument>
+        </service>
+
+        <service id="maba_webpack_migration.command.modify_twig_templates"
+                 class="Maba\Bundle\WebpackMigrationBundle\Command\ModifyTwigTemplatesCommand">
+            <tag name="console.command"/>
+
+            <argument type="service" id="maba_webpack_migration.twig_files_replacer"/>
+            <argument type="service" id="maba_webpack_migration.named_assets_dumper"/>
+        </service>
+
+        <service id="maba_webpack_migration.named_assets_dumper"
+                 class="Maba\Bundle\WebpackMigrationBundle\Service\NamedAssetsDumper">
+            <argument type="service" id="maba_webpack_migration.asset_file_dumper"/>
+            <argument>%maba_webpack_migration.assetic.named_assets%</argument>
+            <argument>%maba_webpack.aliases.additional%</argument>
+        </service>
+
+        <service id="maba_webpack_migration.asset_file_dumper"
+                 class="Maba\Bundle\WebpackMigrationBundle\Service\AssetFileDumper">
+            <argument type="service" id="maba_webpack_migration.alias_prefixer"/>
+            <argument>%assetic.read_from%</argument>
+            <argument type="service" id="kernel"/>
+            <argument type="service" id="maba_webpack_migration.load_prefix_manager"/>
+        </service>
+
+        <service id="maba_webpack_migration.load_prefix_manager"
+                 class="Maba\Bundle\WebpackMigrationBundle\Service\LoadPrefixManager">
+
         </service>
     </services>
 </container>

@@ -1,1 +1,0 @@
-console.log('named2-simple-js-content');

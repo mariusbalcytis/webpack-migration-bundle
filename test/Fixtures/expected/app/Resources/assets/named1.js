@@ -1,0 +1,11 @@
+require("https://code.jquery.com/jquery-3.0.0.min.js");
+require("@dir1/asset.js");
+require("@root/dir2/asset.js");
+require("@root/app/Resources/public/asset.js");
+require("@test/glob/glob1.js");
+require("@test/glob/glob2.js");
+require("@test/glob/subdirectory/glob3.js");
+require("@test/asset.css");
+require("@test/asset.js");
+require("@TestBundle/Resources/public/asset.js");
+require("@app/named2.js");

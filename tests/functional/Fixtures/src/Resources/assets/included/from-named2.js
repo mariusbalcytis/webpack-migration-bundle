@@ -1,1 +1,0 @@
-console.log('from-named2-js-content');
