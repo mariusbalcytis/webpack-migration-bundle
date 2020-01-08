@@ -11,7 +11,7 @@
     ],
     "require": {
         "php": ">=5.3.2",
-        "maba/webpack-bundle": "^0.3.0",
+        "maba/webpack-bundle": "^0.6.0",
         "maba/twig-template-modification-bundle": "^1.0.1",
         "symfony/assetic-bundle": "^2.6",
         "symfony/framework-bundle": "^2.6||^3"
